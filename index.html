@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sourabh Soni's Portfolio">
+  <title>Sourabh Soni - AI/ML Engineer</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f4f4f4;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+    }
+    nav li {
+      margin: 0 10px;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px;
+    }
+    section {
+      padding: 40px 0;
+    }
+    h1, h2, h3 {
+      color: #222;
+    }
+    .timeline {
+      display: flex;
+      flex-direction: column;
+    }
+    .timeline-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .timeline-item::before {
+      content: "";
+      width: 4px;
+      height: 100%;
+      background-color: #333;
+      margin-right: 20px;
+    }
+    .timeline-content {
+      flex: 1;
+    }
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-gap: 20px;
+    }
+    .project-card {
+      border: 1px solid #ccc;
+      padding: 20px;
+    }
+    .skill-bar {
+      height: 20px;
+      background-color: #eee;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .skill-bar-fill {
+      height: 100%;
+      background-color: #333;
+    }
+    .contact-form {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .contact-form input, .contact-form textarea {
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+      }
+      nav li {
+        margin: 5px 0;
+      }
+      .timeline {
+        flex-direction: column;
+      }
+      .timeline-item::before {
+        display: none;
+      }
+    }
+    @media print {
+      body {
+        background-color: white;
+      }
+      header, nav {
+        display: none;
+      }
+      section {
+        padding: 10px 0;
+      }
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /*Added styles for better presentation*/
+    .card {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .tag {
+        background-color: #6c757d;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        margin-right: 5px;
+    }
+    .progress-bar-container {
+        margin-bottom: 10px;
+    }
+    .progress-bar-container label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    .progress-bar {
+        background-color: #eee;
+        height: 20px;
+        width: 100%;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+    .progress-bar-fill {
+        background-color: #28a745;
+        height: 100%;
+    }
+
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Sourabh Soni</h1>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#achievements">Achievements</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="about" class="container">
+      <h2>About Me</h2>
+      <p>
+        {{personalInformation.summary}}
+      </p>
+    </section>
+
+    <section id="experience" class="container">
+      <h2>Work Experience</h2>
+      <div class="timeline">
+        {% for exp in workHistory %}
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <h3>{{exp.title}} @ {{exp.company}}</h3>
+              <p>{{exp.startDate}} - {{exp.endDate}} | {{exp.location}}</p>
+              <ul>
+              {% for desc in exp.description %}
+                <li>{{desc}}</li>
+              {% endfor %}
+              </ul>
+              <p><strong>Technologies:</strong> {% for tech in exp.technologies %}<span class="tag">{{tech}}</span>{% endfor %}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section id="projects" class="container">
+      <h2>Projects</h2>
+      <div class="project-grid">
+        {% for project in projects %}
+          <div class="project-card card">
+            <h3>{{project.name}}</h3>
+            <ul>
+              {% for desc in project.description %}
+                <li>{{desc}}</li>
+              {% endfor %}
+            </ul>
+            <p><strong>Technologies:</strong> {% for tech in project.technologies %}<span class="tag">{{tech}}</span>{% endfor %}</p>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section id="skills" class="container">
+      <h2>Skills</h2>
+      <h3>Programming Languages</h3>
+      <div class="skills-container">
+        {% for lang in skills.languages %}
+            <div class="progress-bar-container">
+                <label>{{lang}}</label>
+                <div class="progress-bar">
+                    <div class="progress-bar-fill" style="width: 80%;"> </div>
+                </div>
+            </div>
+        {% endfor %}
+      </div>
+      <h3>Frameworks & Tools</h3>
+      <div class="skills-container">
+        {% for fw in skills.frameworks %}
+            <div class="progress-bar-container">
+                <label>{{fw}}</label>
+                <div class="progress-bar">
+                    <div class="progress-bar-fill" style="width: 70%;"> </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% for tool in skills.tools %}
+            <div class="progress-bar-container">
+                <label>{{tool}}</label>
+                <div class="progress-bar">
+                    <div class="progress-bar-fill" style="width: 60%;"> </div>
+                </div>
+            </div>
+        {% endfor %}
+      </div>
+    </section>
+
+
+    <section id="education" class="container">
+      <h2>Education</h2>
+      {% for edu in education %}
+        <div class="card">
+          <h3>{{edu.degree}}</h3>
+          <p>{{edu.university}} - {{edu.location}}</p>
+          <p>{{edu.startDate}} - {{edu.endDate}}</p>
+        </div>
+      {% endfor %}
+    </section>
+
+    <section id="achievements" class="container">
+      <h2>Achievements & Certifications</h2>
+      {% for ach in achievements %}
+        <div class="card">
+          <h3>{{ach.name}}</h3>
+          <p>{{ach.details}}</p>
+          <p>{% if ach.date %}{{ach.date}}{% endif %}</p>
+        </div>
+      {% endfor %}
+      {% for cert in certifications %}
+        <div class="card">
+          <h3>{{cert.name}}</h3>
+          <p>Issued by: {{cert.issuer}} - {{cert.date}}</p>
+        </div>
+      {% endfor %}
+    </section>
+
+    <section id="contact" class="container">
+      <h2>Contact</h2>
+      <div class="contact-form">
+        <p>Email: {{personalInformation.email}}</p>
+        <p>Phone: {{personalInformation.phone}}</p>
+        <p>Location: {{personalInformation.location}}</p>
+        <p>Github: <a href="https://github.com/{{personalInformation.github}}">{{personalInformation.github}}</a></p>
+        <p>LinkedIn: <a href="https://www.linkedin.com/in/{{personalInformation.linkedin}}">{{personalInformation.linkedin}}</a></p>
+
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 Sourabh Soni</p>
+  </footer>
+
+  <script>
+    //This is just a placeholder, you'd normally use Javascript for smooth scrolling.
+    //However, this project explicitly forbids Javascript.
+  </script>
+
+</body>
+</html>
+```
+
+To use this, you need to replace the `{{...}}` placeholders with the correct JSON data access using a templating engine (like Jinja2 in Python) or by manually replacing them.  Remember that this HTML uses Jinja2-style templating for clarity and ease of updating.  You would need a templating engine and a backend script to actually render this properly with the JSON data.  The included Javascript is a placeholder; smooth scrolling is not possible without Javascript per the requirements.  The progress bars are visually representative; actual progress bar functionality would require Javascript.  Finally,  consider adding more robust styling for a more polished design.
